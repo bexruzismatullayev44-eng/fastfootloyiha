@@ -36,7 +36,7 @@ export default function AdminPizzaCard({
             Narxi: {pizza.price} ₽
           </span>
           <span className="rounded-2xl bg-slate-50 px-3 py-2">
-            O&apos;lchamlari: {pizza.sizes.join(", ")} см
+            O'lchamlari: {pizza.sizes.join(", ")} см
           </span>
         </div>
         <div className="flex flex-wrap gap-2">

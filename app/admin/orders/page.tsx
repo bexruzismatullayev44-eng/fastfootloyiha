@@ -5,7 +5,7 @@ import { useCallback, useEffect } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import useAdminStore from "@/store/adminStore";
 import AdminOrders from "@/components/admin/AdminOrders";
-import { getOrders, updateOrder } from "@/lib/order";
+import { getOrders, updateOrder } from "@/lib/orderActions";
 
 export default function AdminOrdersPage() {
   const isAdmin = useAdminStore((state) => state.isAdmin);
@@ -60,9 +60,9 @@ export default function AdminOrdersPage() {
   if (!isAdmin) {
     return (
       <div className="rounded-3xl bg-white p-8 shadow-lg">
-        <h1 className="text-2xl font-semibold">Admin ruxsati yo&apos;q</h1>
+        <h1 className="text-2xl font-semibold">Admin ruxsati yo'q</h1>
         <p className="mt-2 text-slate-500">
-          Iltimos admin sahifasiga kirib, buyurtmalarni ko&apos;ring.
+          Iltimos admin sahifasiga kirib, buyurtmalarni ko'ring.
         </p>
         <Link href="/admin">
           <button className="mt-6 rounded-3xl bg-orange-500 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-orange-600">
@@ -81,7 +81,7 @@ export default function AdminOrdersPage() {
           <div>
             <h2 className="text-2xl font-semibold">Buyurtmalar</h2>
             <p className="text-sm text-slate-500">
-              Bu yerda kutayotgan buyurtmalarni ko&apos;rish va yetkazilgan deb
+              Bu yerda kutayotgan buyurtmalarni ko'rish va yetkazilgan deb
               belgilash mumkin.
             </p>
           </div>

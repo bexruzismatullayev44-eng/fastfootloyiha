@@ -1,12 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import useAdminStore from "@/store/adminStore";
 import AdminPizzaForm from "@/components/AdminPizzaForm";
 import AdminPizzaList from "@/components/AdminPizzaList";
-import { getPizzas, createPizza, deletePizza } from "@/lib/pizza";
+import { getPizzas, createPizza, deletePizza, updatePizza } from "@/lib/pizzaActions";
+import { Pizza } from "@/types/pizza";
 
 export default function AdminDashboardPage() {
   const isAdmin = useAdminStore((state) => state.isAdmin);
@@ -14,6 +15,8 @@ export default function AdminDashboardPage() {
   const loading = useAdminStore((state) => state.loading);
   const setPizzas = useAdminStore((state) => state.setPizzas);
   const setLoading = useAdminStore((state) => state.setLoading);
+
+  const [selectedPizza, setSelectedPizza] = useState<Pizza | null>(null);
 
   const loadPizzas = useCallback(async () => {
     setLoading(true);
@@ -69,10 +72,29 @@ export default function AdminDashboardPage() {
     }
   };
 
+  const handleEdit = (pizza: Pizza) => {
+    setSelectedPizza(pizza);
+  };
+
+  const handleUpdatePizza = async (data: Partial<Pizza>) => {
+    if (!selectedPizza) return;
+    setLoading(true);
+    try {
+      await updatePizza(selectedPizza.id, data);
+      toast.success("Pizza yangilandi");
+      setSelectedPizza(null);
+      await loadPizzas();
+    } catch {
+      toast.error("Yangilashda xatolik");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   if (!isAdmin) {
     return (
       <div className="rounded-3xl bg-white p-8 shadow-lg">
-        <h1 className="text-2xl font-semibold">Admin ruxsati yo&apos;q</h1>
+        <h1 className="text-2xl font-semibold">Admin ruxsati yo'q</h1>
         <p className="mt-2 text-slate-500">
           Iltimos admin sahifasiga kirib, keyin dashboardni oching.
         </p>
@@ -93,8 +115,7 @@ export default function AdminDashboardPage() {
           <div>
             <h2 className="text-2xl font-semibold">Dashboard</h2>
             <p className="text-sm text-slate-500">
-              Bu yerda pizza catalogni ko&apos;rish, qo&apos;shish va
-              o&apos;chirish mumkin.
+              Bu yerda pizza catalogni ko'rish, qo'shish va o'chirish mumkin.
             </p>
           </div>
           <div className="rounded-3xl bg-slate-100 px-4 py-2 text-sm text-slate-600">
@@ -109,11 +130,16 @@ export default function AdminDashboardPage() {
             pizzas={pizzas}
             isLoading={loading}
             onDelete={handleDeletePizza}
-            onEdit={() => toast("Tahrirlash funksiyasi hali mavjud emas")}
+            onEdit={handleEdit}
           />
         </div>
 
-        <AdminPizzaForm onCreate={handleCreatePizza} />
+        <AdminPizzaForm
+          onCreate={handleCreatePizza}
+          onUpdate={handleUpdatePizza}
+          editingPizza={selectedPizza}
+          onCancelEdit={() => setSelectedPizza(null)}
+        />
       </div>
     </div>
   );

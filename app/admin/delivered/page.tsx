@@ -5,7 +5,7 @@ import { useCallback, useEffect } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import useAdminStore from "@/store/adminStore";
 import AdminOrders from "@/components/admin/AdminOrders";
-import { getOrders } from "@/lib/order";
+import { getOrders } from "@/lib/orderActions";
 
 export default function AdminDeliveredPage() {
   const isAdmin = useAdminStore((state) => state.isAdmin);

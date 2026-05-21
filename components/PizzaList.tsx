@@ -1,5 +1,3 @@
-
-
 "use client";
 
 import { Pizza } from "@/types/pizza";
@@ -11,16 +9,16 @@ interface PizzaListProps {
 }
 
 export default function PizzaList({ pizzas, onAddToCart }: PizzaListProps) {
-if (pizzas.length === 0) {
+  if (pizzas.length === 0) {
     return (
-      <div className="py-16 text-center text-sm text-slate-400">
+      <div className="rounded-3xl border border-slate-200 p-10 text-center text-slate-500">
         Hozircha pitsa mavjud emas.
       </div>
     );
   }
 
   return (
-    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+    <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
       {pizzas.map((pizza) => (
         <PizzaCard key={pizza.id} pizza={pizza} onAddToCart={onAddToCart} />
       ))}

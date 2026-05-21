@@ -1,8 +1,168 @@
 {
-    "pizzas":[
-
-    ],
-    "orders":[
-        
-    ]
+  "pizzas": [
+    {
+      "id": 1,
+      "name": "chizburger-pizza",
+      "imageUrl": "https://images.pexels.com/photos/315755/pexels-photo-315755.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "types": [
+        "Vegetariancha"
+      ],
+      "sizes": [
+        26,
+        30,
+        40
+      ],
+      "price": 395,
+      "rating": 4.5,
+      "sold": 25
+    },
+    {
+      "id": 2,
+      "name": "sirli",
+      "imageUrl": "https://images.pexels.com/photos/315755/pexels-photo-315755.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "types": [
+        "Vegetariancha"
+      ],
+      "sizes": [
+        26,
+        30,
+        40
+      ],
+      "price": 450,
+      "rating": 4.7,
+      "sold": 40
+    },
+    {
+      "id": 3,
+      "name": "bilmayman man buni qanaqa",
+      "imageUrl": "https://images.pexels.com/photos/2232/vegetables-italian-pizza-restaurant.jpg?auto=compress&cs=tinysrgb&w=800",
+      "types": [
+        "Yopiq"
+      ],
+      "sizes": [
+        26,
+        30,
+        40
+      ],
+      "price": 430,
+      "rating": 4.4,
+      "sold": 18
+    },
+    {
+      "id": 4,
+      "name": "ana u rasmbu",
+      "imageUrl": "https://images.pexels.com/photos/2619967/pexels-photo-2619967.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "types": [
+        "Yopiq"
+      ],
+      "sizes": [
+        26,
+        30,
+        40
+      ],
+      "price": 420,
+      "rating": 4.6,
+      "sold": 32
+    },
+    {
+      "id": 5,
+      "name": "kartoshka fri",
+      "imageUrl": "https://images.pexels.com/photos/1583884/pexels-photo-1583884.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "types": [
+        "Vegetariancha"
+      ],
+      "sizes": [
+        26,
+        30,
+        40
+      ],
+      "price": 410,
+      "rating": 4.8,
+      "sold": 22
+    },
+    {
+      "id": 6,
+      "name": "tovuqli",
+      "imageUrl": "https://images.pexels.com/photos/1435907/pexels-photo-1435907.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "types": [
+        "Острые"
+      ],
+      "sizes": [
+        26,
+        30,
+        40
+      ],
+      "price": 445,
+      "rating": 4.3,
+      "sold": 15
+    }
+  ],
+  "orders": [
+    {
+      "id": 1778695753443,
+      "name": "bekmirza",
+      "address": "wjrnkl",
+      "payment": "Naqd",
+      "items": [
+        {
+          "id": 1,
+          "name": "Чизбургер-пицца",
+          "imageUrl": "https://images.pexels.com/photos/4109081/pexels-photo-4109081.jpeg?auto=compress&cs=tinysrgb&w=800",
+          "size": 40,
+          "price": 553,
+          "quantity": 1,
+          "types": [
+            "Мясные"
+          ]
+        }
+      ],
+      "total": 553,
+      "date": "5/13/2026, 11:09:13 PM",
+      "delivered": true
+    },
+    {
+      "id": 1779174443976,
+      "name": "jamshid",
+      "address": "bukhara",
+      "payment": "Karta",
+      "items": [
+        {
+          "id": 4,
+          "name": "Пепперони",
+          "imageUrl": "https://images.pexels.com/photos/2619967/pexels-photo-2619967.jpeg?auto=compress&cs=tinysrgb&w=800",
+          "size": 26,
+          "price": 420,
+          "quantity": 3,
+          "types": [
+            "Мясные"
+          ]
+        }
+      ],
+      "total": 1260,
+      "date": "19.05.2026, 12:07:23",
+      "delivered": false
+    },
+    {
+      "id": 1779399999870,
+      "name": "Bexruz",
+      "address": "shehoncha",
+      "payment": "Naqd",
+      "items": [
+        {
+          "id": 1,
+          "name": "chizburger-pizza",
+          "imageUrl": "https://images.pexels.com/photos/315755/pexels-photo-315755.jpeg?auto=compress&cs=tinysrgb&w=800",
+          "size": 26,
+          "price": 395,
+          "quantity": 2,
+          "types": [
+            "Vegetariancha"
+          ]
+        }
+      ],
+      "total": 790,
+      "date": "5/22/2026, 2:46:39 AM",
+      "delivered": true
+    }
+  ]
 }

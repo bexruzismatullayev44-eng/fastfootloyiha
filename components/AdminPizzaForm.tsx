@@ -1,7 +1,9 @@
 "use client";
 
+import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import usePizzaFormStore from "@/store/pizzaFormStore";
+import { Pizza } from "@/types/pizza";
 
 interface AdminPizzaFormProps {
   onCreate: (data: {
@@ -10,9 +12,17 @@ interface AdminPizzaFormProps {
     imageUrl: string;
     types: string[];
   }) => Promise<void>;
+  onUpdate: (data: Partial<Pizza>) => Promise<void>;
+  editingPizza: Pizza | null;
+  onCancelEdit: () => void;
 }
 
-export default function AdminPizzaForm({ onCreate }: AdminPizzaFormProps) {
+export default function AdminPizzaForm({
+  onCreate,
+  onUpdate,
+  editingPizza,
+  onCancelEdit,
+}: AdminPizzaFormProps) {
   const name = usePizzaFormStore((state) => state.name);
   const price = usePizzaFormStore((state) => state.price);
   const imageUrl = usePizzaFormStore((state) => state.imageUrl);
@@ -25,19 +35,38 @@ export default function AdminPizzaForm({ onCreate }: AdminPizzaFormProps) {
   const setIsSubmitting = usePizzaFormStore((state) => state.setIsSubmitting);
   const resetForm = usePizzaFormStore((state) => state.resetForm);
 
-  const handleSubmit = async () => {
-    if (!name.trim() || !price.trim() || !imageUrl.trim()) {
-      return;
+  // Edit modeda formni to'ldirish
+  useEffect(() => {
+    if (editingPizza) {
+      setName(editingPizza.name);
+      setPrice(String(editingPizza.price));
+      setImageUrl(editingPizza.imageUrl);
+      setTypeInput(editingPizza.types[0] ?? "Мясные");
+    } else {
+      resetForm();
     }
+  }, [editingPizza]);
+
+  const handleSubmit = async () => {
+    if (!name.trim() || !price.trim() || !imageUrl.trim()) return;
 
     setIsSubmitting(true);
     try {
-      await onCreate({
-        name: name.trim(),
-        price: Number(price),
-        imageUrl: imageUrl.trim(),
-        types: [typeInput],
-      });
+      if (editingPizza) {
+        await onUpdate({
+          name: name.trim(),
+          price: Number(price),
+          imageUrl: imageUrl.trim(),
+          types: [typeInput],
+        });
+      } else {
+        await onCreate({
+          name: name.trim(),
+          price: Number(price),
+          imageUrl: imageUrl.trim(),
+          types: [typeInput],
+        });
+      }
       resetForm();
     } finally {
       setIsSubmitting(false);
@@ -46,22 +75,24 @@ export default function AdminPizzaForm({ onCreate }: AdminPizzaFormProps) {
 
   return (
     <div className="rounded-3xl bg-white p-6 shadow-lg">
-      <h2 className="text-2xl font-semibold">Yangi pizza qo&apos;shish</h2>
+      <h2 className="text-2xl font-semibold">
+        {editingPizza ? "Pizzani tahrirlash" : "Yangi pizza qo'shish"}
+      </h2>
       <div className="mt-6 space-y-4">
         <label className="block space-y-2 text-sm text-slate-700">
           Pizza nomi
           <input
             value={name}
-            onChange={(event) => setName(event.target.value)}
+            onChange={(e) => setName(e.target.value)}
             className="w-full rounded-2xl border border-slate-300 bg-slate-50 px-4 py-3 outline-none focus:border-slate-500"
-            placeholder="Masalan: Сырная"
+            placeholder="Masalan: Sirli"
           />
         </label>
         <label className="block space-y-2 text-sm text-slate-700">
           Narxi
           <input
             value={price}
-            onChange={(event) => setPrice(event.target.value)}
+            onChange={(e) => setPrice(e.target.value)}
             className="w-full rounded-2xl border border-slate-300 bg-slate-50 px-4 py-3 outline-none focus:border-slate-500"
             placeholder="Masalan: 420"
             type="number"
@@ -71,7 +102,7 @@ export default function AdminPizzaForm({ onCreate }: AdminPizzaFormProps) {
           Rasm URL
           <input
             value={imageUrl}
-            onChange={(event) => setImageUrl(event.target.value)}
+            onChange={(e) => setImageUrl(e.target.value)}
             className="w-full rounded-2xl border border-slate-300 bg-slate-50 px-4 py-3 outline-none focus:border-slate-500"
             placeholder="https://..."
           />
@@ -80,14 +111,14 @@ export default function AdminPizzaForm({ onCreate }: AdminPizzaFormProps) {
           Turi
           <select
             value={typeInput}
-            onChange={(event) => setTypeInput(event.target.value)}
+            onChange={(e) => setTypeInput(e.target.value)}
             className="w-full rounded-2xl border border-slate-300 bg-slate-50 px-4 py-3 outline-none focus:border-slate-500"
           >
-            <option>Мясные</option>
-            <option>Вегетарианская</option>
-            <option>Гриль</option>
-            <option>Острые</option>
-            <option>Закрытые</option>
+            <option>Go'shtli</option>
+            <option>Vegetariancha</option>
+            <option>Gril</option>
+            <option>Achchiq</option>
+            <option>Yopiq</option>
           </select>
         </label>
         <Button
@@ -95,8 +126,20 @@ export default function AdminPizzaForm({ onCreate }: AdminPizzaFormProps) {
           className="w-full"
           disabled={isSubmitting}
         >
-          Pizza qo&apos;shish
+          {editingPizza ? "Saqlash" : "Pizza qo'shish"}
         </Button>
+        {editingPizza && (
+          <Button
+            variant="outline"
+            className="w-full"
+            onClick={() => {
+              resetForm();
+              onCancelEdit();
+            }}
+          >
+            Bekor qilish
+          </Button>
+        )}
       </div>
     </div>
   );

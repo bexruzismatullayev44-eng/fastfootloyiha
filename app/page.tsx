@@ -8,14 +8,14 @@ import PizzaList from "@/components/PizzaList";
 import useStore from "@/store/useStore";
 import useAppStore from "@/store/appStore";
 import { Pizza } from "@/types/pizza";
-import { getPizzas } from "@/lib/pizza";
+import { getPizzas } from "@/lib/pizzaActions";
 
 const categories = [
   "Barchasi",
   "Go'shtli",
-  "Vegetarian",
-  "Grill",
-  "Achchiq",
+  "Vegetariancha",
+  "Gril",
+  "Achiq",
   "Yopiq",
 ];
 
@@ -81,50 +81,50 @@ export default function HomePage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#faf9f7] px-4 py-6 font-sans text-[#1a1a1a]">
+    <div className="min-h-screen bg-slate-50 px-4 py-10 text-slate-900">
+      <div className="flex justify-center items-center min-height-screen">
+        <Link href="/admin">
+          <button className="admin-btn cursor-pointer">Admin page</button>
+        </Link>
+      </div><br />
+
       <Toaster position="top-center" />
-      <div className="mx-auto max-w-7xl space-y-3">
-        <header className="flex flex-col gap-5 rounded-3xl bg-white border border-[#e8e3dc] p-7 sm:flex-row sm:items-center sm:justify-between">
+      <div className="mx-auto max-w-7xl space-y-8">
+        <header className="flex flex-col gap-6 rounded-3xl bg-white p-6 shadow-lg sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <p className="text-[11px] uppercase tracking-[0.22em] text-[#e2661a] font-semibold">
+            <p className="text-sm uppercase tracking-[0.3em] text-orange-600">
               Next Pizza
             </p>
-            <h1 className="mt-2 font-serif text-4xl font-black leading-tight sm:text-5xl">
+            <h1 className="mt-3 text-4xl font-semibold sm:text-5xl">
               Pizza buyurtma qilish
             </h1>
-            <p className="mt-2 max-w-lg text-sm text-[#888] leading-relaxed">
+            <p className="mt-3 max-w-2xl text-slate-600">
               Next.js, TypeScript, Zustand, Axios, Tailwind CSS, Shadcn UI va
-              React Hot Toast bilan yozilgan pizza do&apos;koni.
+              React Hot Toast bilan yozilgan pizza do'koni.
             </p>
           </div>
           <div className="flex flex-col gap-3 sm:items-end">
-            <div className="rounded-full bg-[#f5f2ee] border border-[#e8e3dc] px-5 py-2.5 text-sm text-[#666]">
+            <div className="rounded-3xl bg-slate-100 px-4 py-3 text-slate-700">
               Savatchada:{" "}
-              <span className="font-semibold text-[#1a1a1a]">
+              <span className="font-semibold text-slate-900">
                 {cart.length}
               </span>{" "}
               ta mahsulot
             </div>
             <Link href="/cart">
-              <Button className="rounded-full bg-[#e2661a] hover:bg-[#c8541a] text-white border-none px-6">
-                Savatchaga o&apos;tish
-              </Button>
+              <Button>Savatchaga o'tish</Button>
             </Link>
           </div>
         </header>
 
-        <section className="flex flex-col gap-4 rounded-3xl bg-white border border-[#e8e3dc] p-6">
-          <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+        <section className="grid gap-4 rounded-3xl bg-white p-6 shadow-lg">
+          <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
             <div className="flex flex-wrap gap-2">
               {categories.map((category, index) => (
                 <Button
                   key={category}
+                  variant={selectedCategory === index ? "default" : "outline"}
                   onClick={() => setSelectedCategory(index)}
-                  className={`rounded-full text-sm font-medium px-5 py-2 border transition-all ${
-                    selectedCategory === index
-                      ? "bg-[#1a1a1a] text-white border-[#1a1a1a] hover:bg-[#333]"
-                      : "bg-transparent text-[#888] border-[#e0dbd3] hover:border-[#aaa] hover:text-[#1a1a1a] hover:bg-transparent"
-                  }`}
                 >
                   {category}
                 </Button>
@@ -133,16 +133,16 @@ export default function HomePage() {
             <select
               value={sortType}
               onChange={(event) => setSortType(event.target.value)}
-              className="rounded-full border border-[#e0dbd3] bg-[#f5f2ee] px-5 py-2.5 text-sm text-[#555] outline-none"
+              className="rounded-3xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm outline-none transition hover:border-slate-300"
             >
               <option value="default">Saralash</option>
-              <option value="alphabet">Alifbo bo&apos;yicha</option>
-              <option value="popular">Mashhurlik bo&apos;yicha</option>
+              <option value="alphabet">Alifbo bo'yicha</option>
+              <option value="popular">Mashhurlik bo'yicha</option>
             </select>
           </div>
 
           {isLoading ? (
-            <div className="rounded-2xl border border-[#e8e3dc] p-10 text-center text-[#bbb] text-sm">
+            <div className="rounded-3xl border border-slate-200 p-10 text-center text-slate-500">
               Yuklanmoqda...
             </div>
           ) : (

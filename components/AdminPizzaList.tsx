@@ -27,7 +27,7 @@ export default function AdminPizzaList({
   if (pizzas.length === 0) {
     return (
       <div className="rounded-3xl border border-slate-200 p-8 text-center text-slate-500">
-        Hozircha mahsulotlar yo&apos;q.
+        Hozircha mahsulotlar yo'q.
       </div>
     );
   }

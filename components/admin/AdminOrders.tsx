@@ -25,7 +25,7 @@ export default function AdminOrders({
   if (orders.length === 0) {
     return (
       <div className="rounded-3xl border border-slate-200 p-8 text-center text-slate-500">
-        Buyurtmalar mavjud emas 
+        Buyurtmalar yo'q.
       </div>
     );
   }
